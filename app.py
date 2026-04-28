@@ -13,19 +13,12 @@ def home():
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    # 🔹 Get full email input
     user_input = request.form["input"]
-
-    # 🔹 Clean text (important for full emails)
     cleaned_input = user_input.lower().strip()
 
-    # 🔹 Convert text → numerical features
     transformed_input = vectorizer.transform([cleaned_input])
-
-    # 🔹 Predict
     prediction = model.predict(transformed_input)[0]
 
-    # 🔹 Convert result to readable output
     if prediction == 1:
         result = "PHISHING ⚠️"
     else:
@@ -33,5 +26,7 @@ def predict():
 
     return render_template("index.html", prediction_text=result)
 
+
+# ✅ THIS MUST BE OUTSIDE FUNCTIONS
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=10000)
