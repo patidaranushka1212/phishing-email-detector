@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Email Spam Checker</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background-color: white;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .logo {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2563eb;
+        }
+
+        .author {
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-top: 60px;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #1e3a8a;
+        }
+
+        .header p {
+            max-width: 700px;
+            margin: auto;
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        /* Main Card */
+        .main {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .card {
+            background-color: white;
+            padding: 40px;
+            width: 650px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
+        }
+
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 12px;
+            font-size: 14px;
+            border-radius: 8px;
+            border: 1px solid #cbd5f5;
+            background-color: #f1f5f9;
+            color: #1e293b;
+            resize: none;
+        }
+
+        textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            background-color: #2563eb;
+            border: none;
+            color: white;
+            font-size: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Result */
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .safe {
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+        }
+
+        .phishing {
+            background-color: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 80px;
+            font-size: 12px;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <div class="logo">🕵️ Jasoos Email Checker</div>
+    <div class="author">Made by Anushka Patidar</div>
+</div>
+
+<!-- Header -->
+<div class="header">
+    <h1>Email Spam Checker</h1>
+    <p>
+        Check the quality of an email with our free Email Spam Checker tool.
+        Our system helps prevent spam, enhance security, and improve email
+        deliverability by analyzing whether an email appears safe or suspicious.
+    </p>
+</div>
+
+<!-- Main Card -->
+<div class="main">
+    <div class="card">
+
+        <form action="/predict" method="post">
+            <textarea name="input" placeholder="Paste the full email content here..." required></textarea>
+            <button class="button" type="submit">Analyze Email</button>
+        </form>
+
+        {% if prediction_text %}
+            <div class="result 
+                {% if 'PHISHING' in prediction_text %}
+                    phishing
+                {% else %}
+                    safe
+                {% endif %}
+            ">
+                {{ prediction_text }}
+            </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    Built using Flask & Machine Learning • For Educational Use
+</div>
+
+</body>
+</html>
